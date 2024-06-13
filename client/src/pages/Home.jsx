@@ -12,7 +12,7 @@ const Home = () => {
     <div>
       <Header />
       <AddRestaurant />
-      <RestaurantList data={data} />
+      <RestaurantList datas={data} />
     </div>
   );
 };
