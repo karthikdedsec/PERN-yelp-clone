@@ -1,10 +1,12 @@
 import { useContext, useEffect, useRef } from "react";
 import restaurantsapi from "../apis/restaurantsapi";
 import { RestaurantContext } from "../context/RestaurantContext";
+import { useNavigate } from "react-router-dom";
 
 const RestaurantList = () => {
   const { restaurants, setRestaurants } = useContext(RestaurantContext);
   const { deleteRestaurant } = useContext(RestaurantContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +31,10 @@ const RestaurantList = () => {
     }
   };
 
+  const handleNavigation = (id) => {
+    navigate(`/restaurant/${id}/update`);
+  };
+
   return (
     <div className="flex justify-center mt-7">
       <table>
@@ -51,7 +57,10 @@ const RestaurantList = () => {
                 <td>{"$".repeat(item.price_range)}</td>
                 <td>reviews</td>
                 <td>
-                  <button className="bg-orange-400 px-4 py-2 text-white rounded-xl">
+                  <button
+                    onClick={() => handleNavigation(item.id)}
+                    className="bg-orange-400 px-4 py-2 text-white rounded-xl"
+                  >
                     edit
                   </button>
                 </td>
