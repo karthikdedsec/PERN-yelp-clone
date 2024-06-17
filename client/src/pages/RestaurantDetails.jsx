@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { RestaurantContext } from "../context/RestaurantContext";
 import restaurantsapi from "../apis/restaurantsapi";
 import { useParams } from "react-router-dom";
+import StarRatings from "../components/StarRatings";
 
 const RestaurantDetails = () => {
   const { selectedRestaurant, setSelectedRestaurant } =
@@ -22,6 +23,10 @@ const RestaurantDetails = () => {
     fetchDetails();
   }, []);
 
-  return <div>RestaurantDetails</div>;
+  return (
+    <div>
+      <StarRatings ratings={1.2} />
+    </div>
+  );
 };
 export default RestaurantDetails;
