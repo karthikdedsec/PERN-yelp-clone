@@ -8,7 +8,7 @@ import { RestaurantContextProvider } from "./context/RestaurantContext";
 const App = () => {
   return (
     <RestaurantContextProvider>
-      <div className="App px-6 mx-auto lg:max-w-4xl sm:max-w-xl">
+      <div className="App px-6 mx-auto lg:max-w-7xl sm:max-w-xl md:max-w-5xl">
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />

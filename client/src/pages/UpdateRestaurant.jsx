@@ -41,10 +41,10 @@ const UpdateRestaurant = () => {
   };
 
   return (
-    <div>
+    <div className="">
       <div className="text-center text-3xl m-5">UpdateRestaurant</div>
-      <div className="mt-24">
-        <div className="lg:max-w-4xl md:max-w-2xl max-w-xl">
+      <div className="mt-24 flex w-full items-center justify-center">
+        <div className="lg:max-w-4xl flex-1 md:max-w-2xl max-w-xl">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <label className="flex flex-col">
               name

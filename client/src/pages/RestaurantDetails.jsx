@@ -3,6 +3,7 @@ import { RestaurantContext } from "../context/RestaurantContext";
 import restaurantsapi from "../apis/restaurantsapi";
 import { useParams } from "react-router-dom";
 import StarRatings from "../components/StarRatings";
+import Ratings from "../components/Ratings";
 
 const RestaurantDetails = () => {
   const { selectedRestaurant, setSelectedRestaurant } =
@@ -24,8 +25,8 @@ const RestaurantDetails = () => {
   }, []);
 
   return (
-    <div>
-      <StarRatings ratings={1.2} />
+    <div className="mt-3 w-full">
+      <Ratings />
     </div>
   );
 };
