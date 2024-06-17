@@ -22,7 +22,8 @@ const RestaurantList = () => {
     fetchData();
   }, []);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (e, id) => {
+    e.stopPropagation();
     try {
       const res = await restaurantsapi.delete(`/restaurants/${id}`);
       deleteRestaurant(id);
@@ -31,8 +32,13 @@ const RestaurantList = () => {
     }
   };
 
-  const handleNavigation = (id) => {
+  const handleNavigation = (e, id) => {
+    e.stopPropagation();
     navigate(`/restaurant/${id}/update`);
+  };
+
+  const navigation = (id) => {
+    navigate(`/restaurant/${id}`);
   };
 
   return (
@@ -51,14 +57,14 @@ const RestaurantList = () => {
         <tbody>
           {restaurants &&
             restaurants.map((item, index) => (
-              <tr key={index}>
+              <tr onClick={() => navigation(item.id)} key={index}>
                 <td>{item.name}</td>
                 <td>{item.location}</td>
                 <td>{"$".repeat(item.price_range)}</td>
                 <td>reviews</td>
                 <td>
                   <button
-                    onClick={() => handleNavigation(item.id)}
+                    onClick={(e) => handleNavigation(e, item.id)}
                     className="bg-orange-400 px-4 py-2 text-white rounded-xl"
                   >
                     edit
@@ -66,7 +72,7 @@ const RestaurantList = () => {
                 </td>
                 <td>
                   <button
-                    onClick={() => handleDelete(item.id)}
+                    onClick={(e) => handleDelete(e, item.id)}
                     className="bg-red-500 px-4 py-2 text-white rounded-xl"
                   >
                     delete
