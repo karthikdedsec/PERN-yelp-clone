@@ -3,7 +3,9 @@ import { query } from "../db/index.js";
 //get all restaurants => /api/v1/restaurants
 export const getRestaurants = async (req, res, next) => {
   try {
-    const data = await query("select * from restaurants;");
+    const data = await query(
+      "select * from restaurants left join (select restaurant_id, COUNT(*), TRUNC(AVG(ratings),1) as average_ratings from reviews group by restaurant_id) reviews on restaurants.id = reviews.restaurant_id;"
+    );
     res.status(200).json({
       success: true,
       results: data.rows.length,
@@ -19,13 +21,19 @@ export const getRestaurants = async (req, res, next) => {
 //get single restaurants => /api/v1/restaurants/:id
 export const getRestaurant = async (req, res, next) => {
   try {
-    const data = await query("select * from restaurants where id = $1", [
-      req.params.id,
-    ]);
+    const data = await query(
+      "select * from restaurants left join (select restaurant_id, COUNT(*), TRUNC(AVG(ratings),1) as average_ratings from reviews group by restaurant_id) reviews on restaurants.id = reviews.restaurant_id where id = $1;",
+      [req.params.id]
+    );
+    const reviews = await query(
+      "select * from reviews where restaurant_id = $1",
+      [req.params.id]
+    );
     res.status(200).json({
       success: true,
       data: {
         restaurant: data.rows[0],
+        reviews: reviews.rows,
       },
     });
   } catch (error) {
@@ -74,6 +82,23 @@ export const deleteRestaurants = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "successfully deleted",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//add reviews => /api/v1/restaurants/:id/reviews
+export const addReviews = async (req, res, next) => {
+  const { name, reviews, ratings } = req.body;
+  try {
+    const data = await query(
+      "INSERT INTO reviews (restaurant_id, name, reviews, ratings) values($1, $2, $3, $4) returning *",
+      [req.params.id, name, reviews, ratings]
+    );
+    res.status(201).json({
+      success: true,
+      reviews: data.rows[0],
     });
   } catch (error) {
     console.log(error);

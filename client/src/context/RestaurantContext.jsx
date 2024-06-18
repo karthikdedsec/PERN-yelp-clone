@@ -15,6 +15,7 @@ export const RestaurantContextProvider = ({ children }) => {
       return prev.filter((item) => item.id !== id);
     });
   };
+
   return (
     <RestaurantContext.Provider
       value={{

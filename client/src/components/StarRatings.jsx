@@ -5,11 +5,13 @@ const StarRatings = ({ ratings }) => {
 
   for (let i = 1; i <= 5; i++) {
     if (i <= ratings) {
-      stars.push(<i className="fa-solid fa-star"></i>);
+      stars.push(<i className="fa-solid fa-star text-yellow-300"></i>);
     } else if (i === Math.ceil(ratings) && !Number.isInteger(ratings)) {
-      stars.push(<i className="fa-solid fa-star-half-stroke"></i>);
+      stars.push(
+        <i className="fa-solid fa-star-half-stroke text-yellow-300"></i>
+      );
     } else {
-      stars.push(<i className="fa-regular fa-star"></i>);
+      stars.push(<i className="fa-regular fa-star text-yellow-300"></i>);
     }
   }
 

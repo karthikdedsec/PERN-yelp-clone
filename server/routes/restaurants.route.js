@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  addReviews,
   createRestaurant,
   deleteRestaurants,
   getRestaurant,
@@ -16,5 +17,6 @@ router
   .get(getRestaurant)
   .put(updateRestaurants)
   .delete(deleteRestaurants);
+router.route("/restaurants/:id/reviews").post(addReviews);
 
 export default router;
